@@ -4,14 +4,36 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "smle"
-version = "0.1.6"
+version = "0.0.1.dev4"
 description = "Simple Machine Learning Enviroment - a tiny utilities framework for ML/DL."
+
+authors = [
+  { name="Alessio Russo", email="alessio.russo.ar98@gmail.com" },
+]
+
 readme = "README.md"
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: OS Independent",
+]
+
 dependencies = [
   "PyYAML>=6.0.3",
   "wandb>=0.23.0",
-  "numpy>=2.3.5",
+  "numpy>=2,<2.3.0",
   "pandas>=2.3.3",
+  "scikit-learn==1.7.2"
 ]
 
 [project.optional-dependencies]
@@ -24,3 +46,6 @@ where = ["src"]
 
 [project.scripts]
 smle = "smle.cli:main"
+
+[project.urls]
+Homepage = "https://smle.netlify.app/"
