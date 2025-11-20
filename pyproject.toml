@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "smle"
-version = "0.0.1.dev7"
+version = "0.0.1.dev8"
 description = "Simple Machine Learning Enviroment - a tiny utilities framework for ML/DL."
 
 authors = [
@@ -33,12 +33,14 @@ dependencies = [
   "wandb>=0.23.0",
   "numpy>=2,<2.3.0",
   "pandas>=2.3.3",
-  "scikit-learn==1.7.2"
+  "matplotlib>=3.10.7",
+  "scikit-learn>=1.7.2"
 ]
 
 [project.optional-dependencies]
 torch = [
   "torch>=2.9.1",
+  "torchvision>=0.24.1"
 ]
 
 [tool.setuptools.packages.find]
@@ -49,3 +51,4 @@ smle = "smle.cli:main"
 
 [project.urls]
 Homepage = "https://smle.netlify.app/"
+

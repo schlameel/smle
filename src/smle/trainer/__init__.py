@@ -25,7 +25,10 @@ class Trainer:
             self._train_epoch(train_loader, epoch)
 
         save_file = export_dir / "model.pth"
+
+        self._model.cpu()
         torch.save(self._model.state_dict(), save_file)
+        self._model.to(self._device)
 
         return self._model
 

@@ -1,4 +1,5 @@
 import builtins
+from typing import Optional, TextIO
 import os
 from datetime import datetime
 import wandb
@@ -17,16 +18,20 @@ def enable_smle_print() -> None:
 def disable_smle_print() -> None:
     builtins.print = _builtin_print  # type: ignore[assignment]
 
-def _log_print(value: str) -> None:
-    """Log to file with timestamp and echo to stdout."""
-    timestamp = datetime.now().replace(microsecond=0).isoformat(sep=" ")
-    line = f"[{timestamp}] {value}"
+def _log_print(*objects: object, sep: str = " ", end: str = "\n", file: Optional[TextIO] = None, flush: bool = False) -> None:
+    """Log to file with timestamp and echo to stdout (mimicking built-in print signature)."""
 
+    message = sep.join(map(str, objects))
+
+    # Log to file
     if _log_file is not None:
+        timestamp = datetime.now().replace(microsecond=0).isoformat(sep=" ")
+        log_line = f"[{timestamp}] {message}\n"
         with open(_log_file, "a", encoding="utf-8") as f:
-            f.write(line + "\n")
+            f.write(log_line)
 
-    _builtin_print(line)
+    # Pass all original arguments (including file/flush) to the real print
+    _builtin_print(*objects, sep=sep, end=end, file=file, flush=flush)
 
 # ============================== #
 
