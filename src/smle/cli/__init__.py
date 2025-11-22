@@ -1,5 +1,6 @@
 import argparse
 import smle.cli.init_command as init_command
+import smle.cli.create_command as create_command
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="smle")
@@ -33,6 +34,27 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     p_init.set_defaults(func=init_command.execute)
+
+    p_create.add_argument(
+        "filetype",
+        nargs="?",
+        help="Tipe of file",
+    )
+
+    p_create.add_argument(
+        "path",
+        nargs="?",
+        default=".",
+        help="Target directory",
+    )
+
+    p_create.add_argument(
+        "--force",
+        action="store_true",
+        help="Overwrite existing files if needed",
+    )
+
+    p_create.set_defaults(func=create_command.execute)
 
     return parser
 

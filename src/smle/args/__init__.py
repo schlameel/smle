@@ -15,7 +15,7 @@ class Parser:
 
         if not os.path.isfile(self._config_file):
             print(f"{Fore.RED}[SMLE] Configuration file {Fore.LIGHTYELLOW_EX}{self._config_file} {self._default}{Fore.RED} was not found.")
-            print(f"{Fore.RED}[SMLE] Please use {Fore.LIGHTYELLOW_EX}smle create conf{Fore.RED} to create it.{Style.RESET_ALL}")
+            print(f"{Fore.RED}[SMLE] Please use {Fore.LIGHTYELLOW_EX}smle create yaml{Fore.RED} to create it.{Style.RESET_ALL}")
             sys.exit(1)
         else:
             print(f"{Fore.GREEN}[SMLE] Configuration file {Fore.LIGHTYELLOW_EX}{self._config_file} {self._default}{Fore.GREEN} loaded.{Style.RESET_ALL}")
