@@ -44,4 +44,10 @@ def execute(args: argparse.Namespace) -> None:
         config_template = f.read()
     config_path.write_text(config_template)
 
+    # .env
+    env_path = root_dir / ".env"
+    with open(templates_path/".env", "r") as f:
+        env_template = f.read()
+    env_path.write_text(env_template)
+
     print(f"{Fore.GREEN}[SMLE] Initialized {Fore.LIGHTYELLOW_EX}{args.template}{Fore.GREEN} template in {Fore.LIGHTYELLOW_EX}{root_dir}{Fore.GREEN} directory.{Style.RESET_ALL}")

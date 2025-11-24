@@ -2,18 +2,25 @@ import builtins
 import os
 import re
 from datetime import datetime
+from pathlib import Path
 import wandb
 from colorama import Fore, Style
 import sys
+
+from smle.secrets.keystore import KeyStore
 
 class Logger:
 
     def __init__(self, args):
 
+        self._keystore = KeyStore()
+
         self._args = args
-        self._log_filename = f'{args["project"]}_{args["session_id"]}.log'
-        self._log_filepath = args["logger"]["dir"]
-        self._log_file = os.path.join(self._log_filepath, self._log_filename)
+
+        self._log_filepath = Path(args["logger"]["dir"]) / Path(args["project"])
+        self._log_filename = f'{args["session_id"]}.log'
+
+        self._log_file = self._log_filepath / self._log_filename
         self._original_print = builtins.print
         self._wandb_run = None
 
@@ -21,6 +28,10 @@ class Logger:
         self._ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
 
         os.makedirs(args["logger"]["dir"], exist_ok=True)
+        os.makedirs(self._log_filepath, exist_ok=True)
+
+    def system_log(self, message:str):
+        self._original_print(message)
 
     def start(self):
         # 1. Create/Wipe log file
@@ -31,7 +42,7 @@ class Logger:
         # 2. Hijack print
         builtins.print = self._log_print
 
-        # 4. Init WandB (Silently)
+        # 4. Init WandB
         if self._args.get("wandb"):
             self._init_wandb()
 
@@ -54,10 +65,22 @@ class Logger:
         self._original_print(*objects, sep=sep, end=end, file=file, flush=flush)
 
     def _init_wandb(self):
+        """
+        Initialize wandb session by reading entity from yaml configuration file
+        and wandb key from .env file
+        """
+
         os.environ["WANDB_SILENT"] = "true" # Silence WandB
 
         wandb_conf = self._args.get("wandb", {})
-        os.environ["WANDB_API_KEY"] = wandb_conf.get("key", "")
+
+        try:
+            wandb_key = self._keystore.get_key("WANDB_API_KEY")
+        except Exception:
+            self.system_log(f"{Fore.RED}[SMLE] No valid key provided in .env for wand service{Style.RESET_ALL}")
+            sys.exit(1)
+
+        os.environ["WANDB_API_KEY"] = wandb_key
 
         try:
             self._wandb_run = wandb.init(

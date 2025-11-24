@@ -4,4 +4,7 @@ dist/
 wandb/
 examples/
 build/
+
 .env
+# Ignore rule for templates directory
+!src/smle/cli/templates/.env
