@@ -84,6 +84,11 @@ app.config_file = "my_file.yaml"
 app.run()
 ```
 
+### Weights and Biases API Key
+
+SMLE expects your Weights and Biases API key to be in the environment variable `WANDB_API_KEY`. You can put it in the `.env` file, but ensure `.env` is in your `.gitignore`. By default `smle init` creates a `.gitignore` that includes `.env`.
+
+
 ## Contributing
 
 Contributions are welcome! If you have ideas for improvements, feel free to fork the repository and submit a pull request.
