@@ -2,7 +2,11 @@ import traceback
 import sys
 import os
 from colorama import Fore, Style
+<<<<<<< HEAD
 import requests
+=======
+from typing import Callable, Optional, Any
+>>>>>>> main
 
 from smle.args import Parser
 from smle.logging import Logger
@@ -15,36 +19,26 @@ class SMLE:
     The base SMLE application
     """
 
-    def __init__(self, config_file: str="smle.yaml"):
-        self._session_id = generate_haiku_id()
-        self._entrypoint_fn = None
-        self._parser: Parser | None = None
-        self._config_file = config_file
+    def __init__(self) -> None:
 
-    @property
-    def config_file(self):
-        return self._config_file
+        self._session_id: str = generate_haiku_id()
 
-    @config_file.setter
-    def config_file(self, config_file: str) -> None:
-        """
-        The method to set the YAML file.
-        """
-        self._config_file = config_file
+        self._parser: Parser = Parser()
+        self._keystore: KeyStore = KeyStore()
+        self._logger: Logger = Logger()
 
-        self._keystore = KeyStore()
+        self._config_file: str = None
 
-        #webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
-        #self._notifier = Notifier(webhook_url)
+        self._entrypoint_fn: Optional[Callable] = None
 
-    def entrypoint(self, entrypoint_fn):
+    def entrypoint(self, entrypoint_fn: Callable) -> Callable:
         """
         The decorator to register the main execution function.
         """
         self._entrypoint_fn = entrypoint_fn
         return entrypoint_fn
 
-    def run(self):
+    def run(self) -> Any:
         """
         The method that executes the application's core logic.
         """
@@ -54,11 +48,10 @@ class SMLE:
             print(f"{Fore.RED}[SMLE] Please use {Fore.LIGHTYELLOW_EX}@app.entrypoint{Fore.RED} to register your main function{Style.RESET_ALL}")
             sys.exit(1)
 
-        self._parser = Parser()
-        self._parser.config_file = self._config_file
+        self._parser.config_file = self._config_file if self._config_file != None else "smle.yaml"
         self._args = self._parser.load_configuration()
         self._args["session_id"] = self._session_id
-        self._logger = Logger(self._args)
+
         self._logger.start()
 
         self._parser.print()
@@ -79,3 +72,14 @@ class SMLE:
             sys.exit(1)
         finally:
             self._logger.stop()
+
+    @property
+    def config_file(self) -> str:
+        return self._config_file
+
+    @config_file.setter
+    def config_file(self, config_file: str) -> None:
+        """
+        The method to set the YAML file.
+        """
+        self._config_file = config_file

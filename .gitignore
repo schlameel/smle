@@ -11,5 +11,3 @@ build/
 .DS_Store
 
 .env
-# Ignore rule for templates directory
-!src/smle/cli/templates/.env

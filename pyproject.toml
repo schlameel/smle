@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "smle"
-version = "0.0.1.dev1"
+version = "0.0.2.dev2"
 description = "Simplify Machine Learning Environments (SMLE) - A simple framework that takes care of the boring stuff in ML projects."
 
 authors = [
@@ -55,7 +55,7 @@ where = ["src"]
 smle = "smle.cli:main"
 
 [project.urls]
-"Homepage" = "https://smle.readthedocs.io"
-"Documentation" = "https://smle.readthedocs.io"
+"Homepage" = "https://pysmle.org"
+"Documentation" = "https://pysmle.org"
 "Source Code" = "https://github.com/blkdmr/smle"
 "Bug Tracker" = "https://github.com/blkdmr/smle/issues"
