@@ -1,6 +1,6 @@
 import os
 import requests
-from .service import Service
+from .services.service import Service
 
 
 class Slack(Service):

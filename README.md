@@ -4,7 +4,7 @@
 
 ![PyPI version](https://img.shields.io/pypi/v/smle) ![License](https://img.shields.io/github/license/blkdmr/pysmle) [![PyPI Downloads](https://img.shields.io/pypi/dm/smle.svg?label=downloads&logo=pypi&color=blue)](https://pypi.org/project/smle/)
 
-[![Discord](https://dcbadge.limes.pink/api/server/WxDkvktBAa)](https://discord.gg/WxDkvktBAa)
+[![Discord Server](https://img.shields.io/badge/Discord-PySMLE-5865F2?logo=discord&logoColor=white)](https://discord.gg/WxDkvktBAa)
 
 **Stop writing boilerplate. Start training.**
 

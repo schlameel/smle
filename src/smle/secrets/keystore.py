@@ -24,4 +24,4 @@ class KeyStore:
         if service in self._keys.keys():
             return self._keys[service]
         else:
-            raise KeyError(f"No valid key found for {service} in .env or environment")
+            raise KeyError(f"Key {service} not found in .env or environment")

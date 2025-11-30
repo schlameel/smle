@@ -1,30 +1,23 @@
-import os
 import requests
-from .service import Service
+from smle.notification.service import Service
 
 
 class Discord(Service):
     """Discord notification service using webhooks."""
-    
-    def __init__(self, webhook_url: str = None):
+
+    def __init__(self):
         """Initialize Discord service.
-        
-        Args:
-            webhook_url: Discord webhook URL. If None, reads from DISCORD_WEBHOOK env var.
-            
-        Raises:
-            ValueError: If webhook URL is not provided or found in environment.
         """
-        self._discord_webhook_url = webhook_url or os.getenv("DISCORD_WEBHOOK")
-        if not self._discord_webhook_url:
-            raise ValueError("Discord webhook URL must be provided or set in DISCORD_WEBHOOK environment variable")
+        super().__init__()
+
+        self._discord_webhook_url = self._keystore.get_key("DISCORD_SECRET")
 
     def send_notification(self, message: str) -> None:
         """Send notification to Discord channel.
-        
+
         Args:
             message: The message to send.
-            
+
         Raises:
             requests.exceptions.RequestException: If the request fails.
         """

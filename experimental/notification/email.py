@@ -2,7 +2,7 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from .service import Service
+from .services.service import Service
 
 
 class Email(Service):

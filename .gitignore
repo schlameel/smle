@@ -2,13 +2,11 @@
 venv/
 env/
 
-
 *.egg-info/
 dist/
 wandb/
-examples/
 build/
-
+logger/
 .idea
 .DS_Store
 
